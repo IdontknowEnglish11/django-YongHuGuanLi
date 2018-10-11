@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主机管理登陆</title>
+    <link href="/static/liang.css" rel="stylesheet" type="text/css">
+    <script src="/static/jquery-1.12.4.js"></script>
+    <style>
+
+        .table thead th{
+            border-bottom: 1px solid #ebeef5;
+        }
+        .table tbody td ,
+        .table thead th{
+            height: 50px;
+            text-align: center;
+            padding: 0 25px;
+            }
+        .c2 {
+            padding: 7px 12px;
+            font-size: 12px;
+            border-radius: 3px;
+            display: inline-block;
+            border: 1px solid #dcdfe6;
+            color: #606266;
+            text-align: center;
+            font-weight: 500;
+            text-decoration: none;
+         }
+        .c2:hover{
+            background-color: #c6e2ff;
+            color: #409eff;
+        }
+        .c3{
+            padding: 7px 12px;
+            font-size: 12px;
+            border-radius: 3px;
+            display: inline-block;
+            border: 1px solid #f78989;
+            color: white;
+            text-align: center;
+            font-weight: 500;
+            text-decoration: none;
+            background-color: #f66161;
+        }
+        .c3:hover{
+            background-color: #f78989;
+        }
+
+        .add-alert .title{
+            height: 50px;
+            line-height: 50px;
+            padding:0 25px;
+            border-bottom: 1px solid #ebeef5;
+            box-sizing: border-box;
+            z-index: 10;
+            }
+        .list-item {
+            margin-bottom: 22px;
+            padding: 0 25px;
+        }
+        .list-item label{
+            text-align: right;
+            vertical-align: middle;
+            float: left;
+            font-size: 14px;
+            color: #606266;
+            line-height: 40px;
+            padding: 0 12px 0 0;
+            box-sizing: border-box;
+        }
+        .input-item{
+            line-height: 40px;
+            position: relative;
+            font-size: 14px;
+            margin-left: 60px;
+        }
+        .input-item input{
+            -webkit-appearance: none;
+            background-color: #fff;
+            background-image: none;
+            border-radius: 4px;
+            border: 1px solid #dcdfe6;
+            box-sizing: border-box;
+            color: #606266;
+            display: inline-block;
+            font-size: inherit;
+            height: 40px;
+            line-height: 40px;
+            outline: none;
+            padding: 0 15px;
+            transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+            width: 100%;
+        }
+
+
+        .btn-close-group{
+            border-top: 1px solid #ebeef5;
+            text-align: right;
+            padding: 10px 15px;
+        }
+
+
+        .hide{
+                display: none;
+            }
+        .c4{
+            color: red;
+
+
+        }
+        .list-group{
+            z-index: 100;
+            position: fixed;
+            top: 100px;
+            left: 42%;
+            background-color: white;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="header">Login to <span>ben</span></div>
+    <form action="/login/" method="post" style="position: relative">
+        <ul>
+            <li>
+                <div class="text">
+                    <span class="yonghu"></span><input type="text" placeholder="请输入用户名" name="username">
+                </div>
+            </li>
+            <li>
+                <div class="password">
+                    <span class="mima"></span><input type="password" placeholder="请输入密码"  name="pwd">
+                </div>
+            </li>
+            <li class="remember">
+                <input type="checkbox">记住我
+            </li>
+            <li>
+                <a href="">忘记我</a>
+            </li>
+            <li>
+                <input type="submit" value="登陆">
+            </li>
+        </ul>
+        <a id="a1" style="position: absolute;bottom: 3px ;right: 8px;color: blue;cursor: pointer">注册</a>
+    </form>
+    <div class="footer">
+        <p>ben Personal Blog  <a href="">Copyright ©2018 BEN </a></p>
+        <p><a href="">BEN Home</a> | <a href="">Bolg
+        </a> | <a href="">Work</a> | <a href="">Terms of Use</a> | <a href="">Contact Me</a></p>
+    </div>
+</div>
+
+            <form class="list-group hide"  action="/tang/" method="post" onSubmit="return checkAll()" >
+            <div class="list-item">
+                <label>用户名</label>
+                <span class="c4 hide">请输入正确的用户名</span>
+                <div class="input-item"><input type="text" autocomplete="off" class="input-inner" name="user" placeholder="用户" id="user" ></div>
+            </div>
+            <div class="list-item">
+                <label>密码</label>
+                <span class="c4 hide" style="margin: 0 0 0 14px">请输入正确的密码</span>
+                <div class="input-item"><input type="password" autocomplete="off" class="input-inner" name="password" placeholder="密码" id="password"></div>
+            </div>
+            <div class="list-item">
+                <label>邮箱</label>
+                <span class="c4 hide" style="margin: 0 0 0 14px">请输入正确的邮箱</span>
+                <div class="input-item"><input type="text" autocomplete="off" class="input-inner" name="email" placeholder="邮箱" id="email"></div>
+            </div>
+            <div class="list-item">
+                <label>职务</label>
+            <div class="input-item">
+                <select name="title">
+                    {% for row in acption %}
+                    <option value="{{ row.id }}">{{ row.caption }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            </div>
+
+            <div class="btn-close-group">
+                <button id="i1" type="button" class="c2" >取消</button>
+                <button type="submit" class="c3">注册</button>
+            </div>
+            </form>
+        </div>
+    <div id="d2" class="hide" style="position: fixed;top: 0;right: 0;left: 0;bottom: 0;background-color: black;z-index: 99;opacity: 0.6"></div>
+    <script src="/static/jquery-1.12.4.js"></script>
+    <script>
+        $('#a1').click(function () {
+            $('#d2').removeClass('hide');
+            $('.list-group').removeClass('hide');
+        });
+        $('#i1').click(function () {
+            $('#d2').addClass('hide');
+            $('.list-group').addClass('hide');
+        })
+    </script>
+</body>
+</html>

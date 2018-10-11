@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        a{text-decoration:none}
+        .pg-head{
+            height: 48px;
+            background-color: white;
+            box-shadow: 0 0 5px 2px #ececec;
+
+        }
+        .pg-head div{
+            width: 300px;
+            text-align: center;
+        }
+        .pg-head a{
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 48px;
+            color: black;
+
+        }
+        .pg-center{
+            position: absolute;
+            top: 48px;
+            left: 0;
+            width: 300px;
+            bottom: 0;
+            background-color: #3c3c3c;
+            color: #4fc04d;
+        }
+        .pg-center div{
+            text-align: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #dddddd;
+        }
+        .pg-center div a{
+            color: #4fc04d;;
+        }
+        .pg-body{
+            position: absolute;
+            top: 65px;
+            right: 25px;
+            left: 325px;
+            height: 800px;
+            background-color: white;
+        }
+          .table{
+              width: 600px;
+                margin-top:30px;
+                color: #909399;
+                font-weight: 500;
+                border: 1px solid #e2e2e2;
+                border-radius: 4px;
+                box-shadow: 0 0 5px 4px #ececec;
+              margin-left: 150px;
+            }
+        .table thead th{
+            border-bottom: 1px solid #ebeef5;
+        }
+        .table tbody td ,
+        .table thead th{
+            height: 50px;
+            text-align: center;
+            padding: 0 25px;
+            }
+         .c2 {
+            padding: 7px 12px;
+            font-size: 12px;
+            border-radius: 3px;
+            display: inline-block;
+            border: 1px solid #dcdfe6;
+            color: #606266;
+            text-align: center;
+            font-weight: 500;
+            text-decoration: none;
+         }
+        .c2:hover{
+            background-color: #c6e2ff;
+            color: #409eff;
+        }
+        .c3{
+            padding: 7px 12px;
+            font-size: 12px;
+            border-radius: 3px;
+            display: inline-block;
+            border: 1px solid #f78989;
+            color: white;
+            text-align: center;
+            font-weight: 500;
+            text-decoration: none;
+            background-color: #f66161;
+        }
+        .c3:hover{
+            background-color: #f78989;
+        }
+         .c1{
+            width: 80px;
+            height: 40px;
+            background-color: #66b1ff;
+            border-radius: 4px;
+            color: white;
+            border: 0;
+        }
+
+    </style>
+</head>
+<body style="margin: 0 ;background-color: #f5f5f5">
+    <div class="pg-head"><div><a href="/index/">主机管理</a></div></div>
+    <div class="pg-center">
+        <div><a href="/index/">用户管理</a></div>
+        <div><a href="#">用户组管理</a></div>
+    </div>
+    <div class="pg-body">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>用户名</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for row in obj %}
+                    <td>{{ row.username }}</td>
+                    <td>
+                        <a href="/detail-{{ row.id }}" class="c2">详情</a>
+                        <a href="/dele-{{ row.id }}" class="c3">删除</a>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

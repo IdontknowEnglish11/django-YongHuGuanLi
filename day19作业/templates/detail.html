@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        a{text-decoration:none;
+            cursor: pointer;
+        }
+        .pg-head{
+            height: 48px;
+            background-color: white;
+            box-shadow: 0 0 5px 2px #ececec;
+
+        }
+        .pg-head div{
+            width: 300px;
+            text-align: center;
+        }
+        .pg-head a{
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 48px;
+            color: black;
+
+        }
+        .pg-center{
+            position: absolute;
+            top: 48px;
+            left: 0;
+            width: 300px;
+            bottom: 0;
+            background-color: #3c3c3c;
+            color: #4fc04d;
+        }
+        .pg-center div{
+            text-align: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #dddddd;
+        }
+        .pg-center div a{
+            color: #4fc04d;;
+        }
+        .pg-body{
+            position: absolute;
+            top: 65px;
+            right: 25px;
+            left: 325px;
+            height: 800px;
+            background-color: white;
+        }
+          .table{
+              width: 1000px;
+                margin-top:30px;
+                color: #909399;
+                font-weight: 500;
+                border: 1px solid #e2e2e2;
+                border-radius: 4px;
+                box-shadow: 0 0 5px 4px #ececec;
+              margin-left: 150px;
+            }
+        .table thead th{
+            border-bottom: 1px solid #ebeef5;
+        }
+        .table tbody td ,
+        .table thead th{
+            height: 50px;
+            text-align: center;
+            padding: 0 25px;
+            }
+         .c2 {
+            padding: 7px 12px;
+            font-size: 12px;
+            border-radius: 3px;
+            display: inline-block;
+            border: 1px solid #dcdfe6;
+            color: #606266;
+            text-align: center;
+            font-weight: 500;
+            text-decoration: none;
+         }
+        .c2:hover{
+            background-color: #c6e2ff;
+            color: #409eff;
+        }
+        .c3{
+            padding: 7px 12px;
+            font-size: 12px;
+            border-radius: 3px;
+            display: inline-block;
+            border: 1px solid #f78989;
+            color: white;
+            text-align: center;
+            font-weight: 500;
+            text-decoration: none;
+            background-color: #f66161;
+        }
+        .c3:hover{
+            background-color: #f78989;
+        }
+         .c1{
+            width: 80px;
+            height: 40px;
+            background-color: #66b1ff;
+            border-radius: 4px;
+            color: white;
+            border: 0;
+        }
+        .tag{
+            background-color: #409eff;
+        }
+        .hide{
+            display: none;
+        }
+        .c10{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: black;
+            opacity: 0.6;
+            z-index: 9;
+        }
+        .c9{
+            position: fixed;
+            top: 100px;
+            left: 20%;
+            z-index: 10;
+
+        }
+    </style>
+</head>
+<body style="margin: 0 ;background-color: #f5f5f5">
+    <div class="pg-head"><div><a href="/index/">主机管理</a></div></div>
+    <div class="pg-center">
+        <div><a href="/index/">用户管理</a></div>
+        <div><a href="#">用户组管理</a></div>
+    </div>
+    <div class="pg-body">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>用户名</th>
+                <th>密码</th>
+                <th>邮箱</th>
+                <th>职务</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for row in obj %}
+                    <td>{{ row.username }}</td>
+                    <td>{{ row.password }}</td>
+                    <td>{{ row.email }}</td>
+                    <td>{{ row.user_group.caption }}</td>
+                    <td>
+                        <a id="i1"  class="c2">编辑</a>
+                        <a href="/dele-{{ row.id }}" class="c3">删除</a>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="c10 hide"></div>
+    <div id="d1" class="hide c9">
+        <form method="post" action="/edit/">
+        <table class="table" style="background-color: white">
+            <thead>
+            <tr>
+                <th>用户名</th>
+                <th>密码</th>
+                <th>邮箱</th>
+                <th>职务</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for row in obj %}
+                    <td><input type="text" name="user" value="{{ row.username }}"/></td>
+                    <td><input type="text" name="pwd" value="{{ row.password }}"/></td>
+                    <td><input type="text" name="email" value="{{ row.email }}"/></td>
+                    <td>
+                        <select name="title" >
+                            {% for row2 in group_obj %}
+                                {% if row.user_group.caption == row2.caption%}
+                                    <option selected="selected" value="{{ row2.id }}">{{ row2.caption }}</option>
+                                    {% else %}
+                                    <option value="{{ row2.id }}">{{ row2.caption }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" id="i1"  class="c2" value="确认提交">
+                        <a class="c3">取消</a>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+        </form>
+    </div>
+    <script src="/static/jquery-1.12.4.js"></script>
+
+    <script>
+        $('#i1').click(function () {
+            $('.c10').removeClass('hide');
+            $('.c9').removeClass('hide');
+        });
+        $('.c3').click(function () {
+             $('.c10').addClass('hide');
+            $('.c9').addClass('hide');
+        })
+    </script>
+{#    <script>#}
+{#        $('#i1').click(function () {#}
+{#            if($(this).hasClass('tag')){#}
+{#                 $(this).removeClass('tag');#}
+{#                 $(this).parent().siblings().each(function () {#}
+{#                     var v = $(this).find('input').val();#}
+{#                     $(this).find('input').remove('input');#}
+{#                     $(this).text(v);#}
+{#                 });#}
+{#                sub_edit(this)#}
+{#            }else {#}
+{#                $(this).addClass('tag');#}
+{#                $(this).parent().siblings().each(function () {#}
+{#                    var v=$(this).text();#}
+{#                    $(this).empty();#}
+{#                    $(this).append("<input type='text' value='"+v+"'>")#}
+{#                });#}
+{#                sel_edit(this)#}
+{#            }#}
+{#        });#}
+{#        function sel_edit(self) {#}
+{#            var selet=$(self).parent().siblings().last();#}
+{#            selet.empty();#}
+{#            var tag = "<select>"+#}
+{#                {% for row in group_obj %}#}
+{#                "<option>{{ row.caption }}</option>"+#}
+{#                {% endfor %}#}
+{#                " </select>";#}
+{#            selet.append(tag);#}
+{#        }#}
+{#        function sub_edit(self) {#}
+{#             var select = $(self).parent().siblings().last();#}
+{#             var v = $('select option:selected').val();#}
+{#             select.empty();#}
+{#             select.append(v);#}
+{#        }#}
+{#    </script>#}
+</body>
+</html>
